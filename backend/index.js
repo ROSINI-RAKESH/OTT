@@ -4,31 +4,31 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import path from "path";
 
-
 //Files
 import connectDB from "./config/db.js";
-import json from "body-parser/lib/types/json.js";
-import urlencoded from "body-parser/lib/types/urlencoded.js";
+import userRoutes from "./routes/userRoutes.js";
 
 //config
-dotenv.config()
+dotenv.config();
 
-connectDB()
+connectDB();
 
-const app=express()
+const app = express();
 
 //middlewares
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use(cookieParser())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-const PORT=process.env.PORT||3000
+const PORT = process.env.PORT || 3000;
+
+//Routes
+app.use("/api/v1/users", userRoutes);
 
 //Routes
 app.use("/api/v1/users",userRoutes)
 
-app.listen(PORT,()=>console.log(`Server is successfully run in PORT: ${PORT}`))
-
-
-
+app.listen(PORT, () =>
+  console.log(`Server is successfully run in PORT: ${PORT}`)
+);
